@@ -5,12 +5,12 @@ const morgan = require('morgan')
 
 const app = express()
 app.use(morgan('combined'))
-app.unsubscribe(bodyParser.json())
+app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/status', (req, res) => {
+app.post('/register', (req, res) => {
   res.send({
-    message: 'hello world'
+    message: `new user ${req.body.email} registered!`
   })
 })
 
