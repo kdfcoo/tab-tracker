@@ -1,11 +1,35 @@
 <template>
   <div>
-    <h1>Register</h1>
-    <input v-model="email" type="email" name="email" placeholder="email">
-    <br>
-    <input v-model="password" type="password" name="password" placeholder="password">
-    <br>
-    <button @click="register()">Register</button>
+    <v-container>
+      <v-layout row wrap>
+        <v-flex xs6 offset-xs3>
+          <div class="white elevation-2">
+            <v-toolbar color="cyan" flat dense dark>
+              <v-toolbar-title>Register</v-toolbar-title>
+            </v-toolbar>
+            <div class="pl-4 pr-4 pt-2 pb-2">
+              <v-text-field
+                name="email"
+                label="email"
+                id="email"
+                v-model="email"
+              ></v-text-field>
+              <br>
+              <v-text-field
+                name="password"
+                label="password"
+                id="password"
+                v-model="password"
+              ></v-text-field>
+              <br>
+              <div v-if="error" class="error">{{error}}</div>
+              <br>
+              <v-btn class="cyan" dark @click="register()">Register</v-btn>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -15,18 +39,29 @@ import AuthenticationService from '../services/AuthenticationService'
 export default {
   data () {
     return {
-      email: 'a',
-      password: 'b'
+      email: '',
+      password: '',
+      error: null
     }
   },
   methods: {
     async register () {
-      const response = await AuthenticationService.register({
-        email: this.email,
-        password: this.password
-      })
-      console.log(response.data)
+      try {
+        await AuthenticationService.register({
+          email: this.email,
+          password: this.password
+        })
+      } catch (error) {
+        console.log(error)
+        this.error = error.response.data.error
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+.error{
+  color: red
+}
+</style>
