@@ -1,33 +1,41 @@
 <template>
   <div>
     <v-container>
-      <v-layout row wrap>
-        <v-flex xs6 offset-xs3>
-          <div class="white elevation-2">
-            <v-toolbar color="cyan" flat dense dark>
-              <v-toolbar-title>Register</v-toolbar-title>
-            </v-toolbar>
-            <div class="pl-4 pr-4 pt-2 pb-2">
-              <v-text-field
-                name="email"
-                label="email"
-                id="email"
-                v-model="email"
-              ></v-text-field>
-              <br>
-              <v-text-field
-                name="password"
-                label="password"
-                type="password"
-                id="password"
-                v-model="password"
-              ></v-text-field>
-              <br>
-              <div v-if="error" class="error">{{error}}</div>
-              <br>
-              <v-btn class="cyan" dark @click="register()">Register</v-btn>
-            </div>
-          </div>
+      <v-layout
+        row
+        wrap
+      >
+        <v-flex
+          xs6
+          offset-xs3
+        >
+          <panel title="Register">
+            <v-text-field
+              name="email"
+              label="email"
+              id="email"
+              v-model="email"
+            ></v-text-field>
+            <br>
+            <v-text-field
+              name="password"
+              label="password"
+              type="password"
+              id="password"
+              v-model="password"
+            ></v-text-field>
+            <br>
+            <div
+              v-if="error"
+              class="error"
+            >{{error}}</div>
+            <br>
+            <v-btn
+              class="cyan"
+              dark
+              @click="register()"
+            >Register</v-btn>
+          </panel>
         </v-flex>
       </v-layout>
     </v-container>
@@ -36,8 +44,12 @@
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
+import Panel from './Panel'
 
 export default {
+  components: {
+    Panel
+  },
   data () {
     return {
       email: '',
@@ -64,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-.error{
-  color: red
+.error {
+  color: red;
 }
 </style>

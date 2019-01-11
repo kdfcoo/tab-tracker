@@ -4,7 +4,9 @@
       TabTracker
     </v-toolbar-title>
     <v-toolbar-items>
-      <v-btn dark flat>Brose</v-btn>
+      <v-btn dark flat @click="navigateTo('songs')">
+        Brose
+      </v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
@@ -31,6 +33,7 @@ export default {
     },
     logout () {
       this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
       this.$router.push({name: 'root'})
     }
   }

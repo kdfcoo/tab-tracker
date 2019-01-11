@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,10 @@ export default new Vuex.Store({
       if (token) {
         state.token = token
         state.isUserLoggedIn = true
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       } else {
+        state.token = null
+        axios.defaults.headers.common['Authorization'] = ''
         state.isUserLoggedIn = false
       }
     },
